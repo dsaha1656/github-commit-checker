@@ -69,10 +69,10 @@ if(!file_exists($last_commit_file)){
     file_put_contents($last_commit_file, $last_commit);
     exit;
 }
-$last_commit_file = file_get_contents($last_commit_file);
+$last_commit_data = file_get_contents($last_commit_file);
 
 // compare last commit and current commit
-if($last_commit_file == $last_commit){
+if($last_commit_data == $last_commit){
     echo "No changes";
     exit;
 }else{
