@@ -51,9 +51,29 @@ function getLastCommit($repo_user, $repo_name, $repo_branch='main') {
     return $result->commit->sha;
 }
 
+
+function getLastRelease($repo_user, $repo_name, $repo_branch='main') {
+    $repo_url = "https://api.github.com/repos/$repo_user/$repo_name/releases/latest";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $repo_url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Whatsapp Web');
+    $result = curl_exec($ch);
+    curl_close($ch);
+    try{
+        $result = json_decode($result);
+    }catch(Exception $e){
+        return false;
+    }
+    return $result->tag_name;
+}
+
+
 // get last commit
 $repo_url = "https://github.com/$repo_owner/$repo_name";
-$last_commit = getLastCommit($repo_owner, $repo_name, $repo_branch);
+// $last_commit = getLastCommit($repo_owner, $repo_name, $repo_branch);
+$last_commit = getLastRelease($repo_owner, $repo_name, $repo_branch);
+
 if(!$last_commit){
     echo "Error getting last commit";
     // send mail to support
