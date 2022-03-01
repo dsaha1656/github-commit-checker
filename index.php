@@ -80,7 +80,7 @@ if($last_commit_data == $last_commit){
     file_put_contents($last_commit_file, $last_commit);
     // send mail to support
     foreach($support_mail as $mail){
-        sendMail($mail, $email_prefix." : New commit", "New commit detected, please check the repo.".$repo_url);
+        sendMail($mail, $email_prefix." : New commit", "New commit detected: ".$last_commit_data." => ".$last_commit.", please check the repo.".$repo_url);
     }
 }
 
